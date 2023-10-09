@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@mui/material";
 import { GiFlamingTrident } from "react-icons/gi";
 import { Typography } from "@mui/material/";
@@ -24,16 +23,9 @@ export default function Navbar() {
         </div>
       </div>
       <div className="flex flex-row items-center pr-4">
-        <Button className="mr-4" variant="contained">
+        <Button href="/signIn" className="mr-4" variant="contained">
           SIGN IN
         </Button>
-        {/* <Image
-          className="rounded-full"
-          src={USER_IMAGE}
-          width={60}
-          height={60}
-          alt=""
-        /> */}
         <Avatar alt="J User Avatar" src="" />
       </div>
     </nav>
