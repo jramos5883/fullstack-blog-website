@@ -23,7 +23,7 @@ export default function Navbar() {
         </div>
       </div>
       <div className="flex flex-row items-center pr-4">
-        <Button href="/signIn" className="mr-4" variant="contained">
+        <Button href="/authentication" className="mr-4" variant="contained">
           SIGN IN
         </Button>
         <Avatar alt="J User Avatar" src="" />
