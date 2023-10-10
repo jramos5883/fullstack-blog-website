@@ -1,11 +1,6 @@
 import { initializeApp } from "firebase/app";
 
-import {
-  getAuth,
-  signInWithRedirect,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
@@ -19,23 +14,31 @@ const firebaseConfig = {
   measurementId: "G-WVZDB9P2C3",
 };
 
+// initialize firebase app
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
+// google auth provider
+const googleProvider = new GoogleAuthProvider();
 
-provider.setCustomParameters({ prompt: "select_account" });
+googleProvider.setCustomParameters({ prompt: "select_account" });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
+// sign in with google popup
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
+
+// firebase database user collection setup
 export const db = getFirestore();
 
+// doc takes 3 parameters: collection, document, data
 export const createUserProfileDocument = async (userAuth) => {
   const userDocRef = doc(db, "users", userAuth.uid);
   console.log(userAuth);
 
   const userSnapshot = await getDoc(userDocRef);
 
+  // if user data doesn't exist, create it
   if (!userSnapshot.exists()) {
     const { displayName, email, photoURL } = userAuth;
     const createdAt = new Date();
@@ -51,6 +54,6 @@ export const createUserProfileDocument = async (userAuth) => {
       console.log("Error creating user", error.message);
     }
   }
-
+  // if user data already exists, return userDocRef
   return userDocRef;
 };
