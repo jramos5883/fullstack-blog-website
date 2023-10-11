@@ -54,34 +54,53 @@ export default function SignInForm() {
   };
 
   return (
-    <div>
-      <h1>Already have an account?</h1>
-      <h1>Sign in with your email and password</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input
-          type="email"
-          required
-          name="email"
-          value={email}
-          onChange={handleChange}
-        />
+    <div className="">
+      <form
+        className="flex flex-col items-center bg-lime-300"
+        onSubmit={handleSubmit}
+      >
+        <h1>Sign In</h1>
+        <p>Already have an account?</p>
+        <p>Sign in with your email and password.</p>
 
-        <label>Password</label>
-        <input
-          type="password"
-          required
-          name="password"
-          value={password}
-          onChange={handleChange}
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <label className="col-start-1 col-span-1 text-2xl flex items-center justify-end">
+            Email:
+          </label>
+          <input
+            className="col-start-2 col-span-1 h-8 text-2xl"
+            type="email"
+            required
+            name="email"
+            value={email}
+            onChange={handleChange}
+          />
 
-        <Button type="submit" variant="contained">
-          Sign In
-        </Button>
-        <Button onClick={signInWithGoogle} variant="contained">
-          Google Sign In
-        </Button>
+          <label className="col-start-1 col-span-1 text-2xl flex items-center justify-end">
+            Password:
+          </label>
+          <input
+            className="col-start-2 col-span-1 h-8 text-2xl"
+            type="password"
+            required
+            name="password"
+            value={password}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="py-4 flex flex-row items-center justify-center">
+          <div className="">
+            <Button className="" type="submit" variant="contained">
+              Sign In
+            </Button>
+          </div>
+        </div>
+        <div className="pb-4">
+          <p> Or sign in with Google.</p>
+          <Button className="" onClick={signInWithGoogle} variant="contained">
+            Google Sign In
+          </Button>
+        </div>
       </form>
     </div>
   );

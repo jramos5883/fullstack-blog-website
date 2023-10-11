@@ -5,10 +5,9 @@ import SignInForm from "../components/sign-in-form";
 
 export default function Authentication() {
   return (
-    <div>
-      Sign In Page!
+    <main className="">
       <SignInForm />
       <SignUpForm />
-    </div>
+    </main>
   );
 }

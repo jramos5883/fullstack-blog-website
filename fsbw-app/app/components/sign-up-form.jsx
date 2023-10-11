@@ -55,47 +55,68 @@ export default function SignUpForm() {
   };
 
   return (
-    <div>
-      <h1>Sign up with your email and password</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Display Name</label>
-        <input
-          type="text"
-          required
-          name="displayName"
-          value={displayName}
-          onChange={handleChange}
-        />
+    <div className="">
+      <form
+        className="flex flex-col items-center bg-lime-500"
+        onSubmit={handleSubmit}
+      >
+        <h1>Sign up</h1>
+        <p>Don't have an account?</p>
+        <p>Create an account below.</p>
+        <div className="grid grid-cols-2 gap-4">
+          <label className="col-start-1 col-span-1 text-2xl flex items-center justify-end">
+            Display Name:
+          </label>
+          <input
+            className="col-start-2 col-span-1 h-8 text-2xl"
+            type="text"
+            required
+            name="displayName"
+            value={displayName}
+            onChange={handleChange}
+          />
 
-        <label>Email</label>
-        <input
-          type="email"
-          required
-          name="email"
-          value={email}
-          onChange={handleChange}
-        />
+          <label className="col-start-1 col-span-1 text-2xl flex items-center justify-end">
+            Email:
+          </label>
+          <input
+            className="col-start-2 col-span-1 h-8 text-2xl"
+            type="email"
+            required
+            name="email"
+            value={email}
+            onChange={handleChange}
+          />
 
-        <label>Password</label>
-        <input
-          type="password"
-          required
-          name="password"
-          value={password}
-          onChange={handleChange}
-        />
+          <label className="col-start-1 col-span-1 text-2xl flex items-center justify-end">
+            Password:
+          </label>
+          <input
+            className="col-start-2 col-span-1 h-8 text-2xl"
+            type="password"
+            required
+            name="password"
+            value={password}
+            onChange={handleChange}
+          />
 
-        <label>Confirm Password</label>
-        <input
-          type="password"
-          required
-          name="confirmPassword"
-          value={confirmPassword}
-          onChange={handleChange}
-        />
-        <Button type="submit" variant="contained">
-          Sign Up
-        </Button>
+          <label className="col-start-1 col-span-1 text-2xl flex items-center justify-end">
+            Confirm Password:
+          </label>
+          <input
+            className="col-start-2 col-span-1 h-8 text-2xl"
+            type="password"
+            required
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="py-4">
+          <Button type="submit" variant="contained">
+            Sign Up
+          </Button>
+        </div>
       </form>
     </div>
   );
