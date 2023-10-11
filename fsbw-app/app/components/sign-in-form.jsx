@@ -1,6 +1,8 @@
 import { useState, useContext } from "react";
 import { Button } from "@mui/material";
 
+import { FcGoogle } from "react-icons/fc";
+
 import { UserContext } from "../contexts/user.context";
 
 import {
@@ -102,10 +104,17 @@ export default function SignInForm() {
             </Button>
           </div>
         </div>
+        <p> Or sign in with Google.</p>
         <div className="pb-4">
-          <p> Or sign in with Google.</p>
-          <Button className="" onClick={signInWithGoogle} variant="contained">
-            Google Sign In
+          <Button
+            className="bg-slate-300"
+            onClick={signInWithGoogle}
+            variant="contained"
+          >
+            <span className="text-2xl pr-4">
+              <FcGoogle />
+            </span>{" "}
+            <span className="text-sky-600 text-lg">Google Sign In</span>
           </Button>
         </div>
       </form>

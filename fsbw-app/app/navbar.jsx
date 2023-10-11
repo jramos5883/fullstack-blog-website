@@ -12,7 +12,7 @@ import Avatar from "@mui/material/Avatar";
 export default function Navbar() {
   // rerenders navbar when currentUser changes in UserContext
   const { currentUser } = useContext(UserContext);
-  console.log(currentUser);
+  // console.log(currentUser);
 
   ("https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg");
   return (
