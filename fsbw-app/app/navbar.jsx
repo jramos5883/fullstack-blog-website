@@ -1,3 +1,8 @@
+"use client";
+
+import { useContext } from "react";
+import { UserContext } from "./contexts/user.context";
+
 import Link from "next/link";
 import { Button } from "@mui/material";
 import { GiFlamingTrident } from "react-icons/gi";
@@ -5,7 +10,11 @@ import { Typography } from "@mui/material/";
 import Avatar from "@mui/material/Avatar";
 
 export default function Navbar() {
-  "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg";
+  // rerenders navbar when currentUser changes in UserContext
+  const { currentUser } = useContext(UserContext);
+  console.log(currentUser);
+
+  ("https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg");
   return (
     <nav className="flex flex-row items-center justify-between h-20 bg-sky-800">
       <div className="flex flex-row items-center">

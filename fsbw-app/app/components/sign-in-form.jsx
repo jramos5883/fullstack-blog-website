@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Button } from "@mui/material";
+
+import { UserContext } from "../contexts/user.context";
 
 import {
   signInWithGooglePopup,
@@ -19,10 +21,14 @@ export default function SignInForm() {
 
     // used to create user in firestore db on first login
     await createUserProfileDocument(user);
+    // may need a setCurrentUser(user); for google sign in as well
+    setCurrentUser(user);
   };
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+
+  const { setCurrentUser } = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -33,11 +39,12 @@ export default function SignInForm() {
     event.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
+      setCurrentUser(user);
+
       resetFormFields();
     } catch (error) {
       if (error.code === "auth/invalid-login-credentials") {

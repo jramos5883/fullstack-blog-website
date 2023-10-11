@@ -2,6 +2,8 @@ import "./globals.css";
 import Navbar from "./navbar";
 import { Inter } from "next/font/google";
 
+import { UserProvider } from "./contexts/user.context";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,11 +13,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body id="root" className={inter.className}>
-        <Navbar />
-        {children}
-      </body>
-    </html>
+    <UserProvider>
+      <html lang="en">
+        <body id="root" className={inter.className}>
+          <Navbar />
+          {children}
+        </body>
+      </html>
+    </UserProvider>
   );
 }
