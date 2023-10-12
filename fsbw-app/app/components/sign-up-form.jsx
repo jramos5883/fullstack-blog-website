@@ -63,7 +63,7 @@ export default function SignUpForm() {
         onSubmit={handleSubmit}
       >
         <h1>Sign up</h1>
-        <p>Don't have an account?</p>
+        <p>Don&apos;t have an account?</p>
         <p>Create an account below.</p>
         <div className="grid grid-cols-2 gap-4">
           <label className="col-start-1 col-span-1 text-2xl flex items-center justify-end">
