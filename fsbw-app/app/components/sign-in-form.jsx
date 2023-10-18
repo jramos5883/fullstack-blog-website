@@ -30,6 +30,7 @@ export default function SignInForm() {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  // used to set current user after sign in
   const { setCurrentUser } = useContext(UserContext);
 
   const resetFormFields = () => {
