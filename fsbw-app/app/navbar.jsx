@@ -12,12 +12,7 @@ import Avatar from "@mui/material/Avatar";
 
 export default function Navbar() {
   // rerenders navbar when currentUser changes in UserContext
-  const { currentUser, setCurrentUser } = useContext(UserContext);
-
-  const signOutHandler = async () => {
-    await signOutAuthUser();
-    setCurrentUser(null);
-  };
+  const { currentUser } = useContext(UserContext);
 
   // console.log(currentUser);
 
@@ -40,7 +35,11 @@ export default function Navbar() {
       </div>
       <div className="flex flex-row items-center pr-4">
         {currentUser ? (
-          <Button onClick={signOutHandler} className="mr-4" variant="contained">
+          <Button
+            onClick={signOutAuthUser}
+            className="mr-4"
+            variant="contained"
+          >
             SIGN OUT
           </Button>
         ) : (

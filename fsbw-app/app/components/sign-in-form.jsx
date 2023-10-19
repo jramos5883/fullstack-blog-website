@@ -1,9 +1,9 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Button } from "@mui/material";
 
 import { FcGoogle } from "react-icons/fc";
 
-import { UserContext } from "../contexts/user.context";
+// import { UserContext } from "../contexts/user.context";
 
 import {
   signInWithGooglePopup,
@@ -19,19 +19,17 @@ const defaultFormFields = {
 export default function SignInForm() {
   const signInWithGoogle = async () => {
     // takes user info from google sign in to create a user document in the users collection
-    const { user } = await signInWithGooglePopup();
+    await signInWithGooglePopup();
 
-    // used to create user in firestore db on first login
-    await createUserProfileDocument(user);
     // may need a setCurrentUser(user); for google sign in as well
-    setCurrentUser(user);
+    // setCurrentUser(user);
   };
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
   // used to set current user after sign in
-  const { setCurrentUser } = useContext(UserContext);
+  // const { setCurrentUser } = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -46,7 +44,7 @@ export default function SignInForm() {
         email,
         password
       );
-      setCurrentUser(user);
+      // setCurrentUser(user);
 
       resetFormFields();
     } catch (error) {
@@ -114,7 +112,7 @@ export default function SignInForm() {
           >
             <span className="text-2xl pr-4">
               <FcGoogle />
-            </span>{" "}
+            </span>
             <span className="text-sky-600 text-lg">Google Sign In</span>
           </Button>
         </div>

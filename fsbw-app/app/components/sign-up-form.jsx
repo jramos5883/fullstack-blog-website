@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import { UserContext } from "../contexts/user.context";
+import { useState } from "react";
+// import { UserContext } from "../contexts/user.context";
 import { Button } from "@mui/material";
 
 import {
@@ -18,7 +18,7 @@ export default function SignUpForm() {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  const { setCurrentUser } = useContext(UserContext);
+  // const { setCurrentUser } = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -38,7 +38,7 @@ export default function SignUpForm() {
         password
       );
       // when user signs up for first time, current user is set to user object
-      setCurrentUser(user);
+      // setCurrentUser(user);
 
       // adds displayName to user object if not using google sign in
       await createUserProfileDocument(user, { displayName });
