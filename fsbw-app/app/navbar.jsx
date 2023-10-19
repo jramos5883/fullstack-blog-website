@@ -35,19 +35,35 @@ export default function Navbar() {
       </div>
       <div className="flex flex-row items-center pr-4">
         {currentUser ? (
-          <Button
-            onClick={signOutAuthUser}
-            className="mr-4"
-            variant="contained"
-          >
-            SIGN OUT
-          </Button>
+          // need to figure out how to display email/password created users
+          <>
+            <Typography className="mr-4 text-white">
+              Welcome {currentUser.displayName}!
+            </Typography>
+            <Button
+              href="/createTechBlogPost"
+              className="mr-4"
+              variant="contained"
+            >
+              Create Tech Blog Post
+            </Button>
+            <Button
+              onClick={signOutAuthUser}
+              className="mr-4"
+              variant="contained"
+            >
+              SIGN OUT
+            </Button>
+            <Avatar alt="" src={currentUser.photoURL} />
+          </>
         ) : (
-          <Button href="/authentication" className="mr-4" variant="contained">
-            SIGN IN
-          </Button>
+          <>
+            <Button href="/authentication" className="mr-4" variant="contained">
+              SIGN IN
+            </Button>
+            <Avatar alt="" src="" />
+          </>
         )}
-        <Avatar alt="J User Avatar" src="" />
       </div>
     </nav>
   );
