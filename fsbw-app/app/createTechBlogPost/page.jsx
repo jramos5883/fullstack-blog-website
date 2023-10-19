@@ -31,7 +31,7 @@ export default function createTechBlogPost() {
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center pt-20">
       <form className="flex flex-col w-2/3" onSubmit={handleSubmit}>
         <label>Category:</label>
         <select value={category} onChange={(e) => setCategory(e.target.value)}>

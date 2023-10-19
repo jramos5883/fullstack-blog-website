@@ -45,7 +45,7 @@ export default function Navbar() {
               className="mr-4"
               variant="contained"
             >
-              Create Tech Blog Post
+              Create Blog Post
             </Button>
             <Button
               onClick={signOutAuthUser}
