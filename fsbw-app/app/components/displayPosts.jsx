@@ -20,19 +20,21 @@ export default function DisplayPosts() {
   }, []);
 
   return (
-    <div>
-      {posts.map((post) => (
-        <div key={post.id}>
-          <p>{post.title}</p>
-          <p>Category: {post.category}</p>
-          <p>Written By: {post.author}</p>
-          <p>
-            Published On:{" "}
-            {new Date(post.createdAt.seconds * 1000).toLocaleDateString()}
-          </p>
-          <p>{post.content}</p>
-        </div>
-      ))}
+    <div className="flex items-center justify-center">
+      <div className="w-2/3">
+        {posts.map((post) => (
+          <div key={post.id}>
+            <p>{post.title}</p>
+            <p>Category: {post.category}</p>
+            <p>Written By: {post.author}</p>
+            <p>
+              Published On:{" "}
+              {new Date(post.createdAt.seconds * 1000).toLocaleDateString()}
+            </p>
+            <p>{post.content}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
