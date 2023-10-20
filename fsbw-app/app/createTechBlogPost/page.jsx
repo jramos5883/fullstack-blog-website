@@ -4,7 +4,7 @@ import { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"; // import serverTimestamp
 import { db } from "../utils/firebase/firebase.utils";
 
-export default function createTechBlogPost() {
+export default function CreateTechBlogPost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("tech"); // default category is "tech"
