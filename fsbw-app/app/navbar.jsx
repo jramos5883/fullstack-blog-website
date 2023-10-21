@@ -28,7 +28,7 @@ export default function Navbar() {
           </Link>
           <Link className="no-underline" href="/">
             <Typography className="text-2xl text-bold pl-4 text-cyan-400">
-              Blog Website
+              TaGFanatics
             </Typography>
           </Link>
         </div>

@@ -41,8 +41,12 @@ export default function DisplayPosts() {
 
   return (
     <div className="flex items-center justify-center">
-      <div className="w-2/3">
+      <div className="w-2/3 mt-4">
         <div>
+          <h1 className="flex justify-center">Tech and Gaming Fanatics</h1>
+          <p className="flex justify-center italic">
+            -For those who love great games and new technologies!
+          </p>
           <label htmlFor="category">Filter by category:</label>
           <select
             id="category"
