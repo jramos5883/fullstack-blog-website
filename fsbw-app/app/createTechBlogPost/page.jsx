@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"; // import serverTimestamp
 import { db } from "../utils/firebase/firebase.utils";
+import { Button } from "@mui/material";
 
 export default function CreateTechBlogPost() {
   const [title, setTitle] = useState("");
@@ -59,7 +60,9 @@ export default function CreateTechBlogPost() {
           onChange={(e) => setContent(e.target.value)}
           style={{ height: "500px" }} // set the height to 2/3 of the page
         />
-        <button type="submit">Create Post</button>
+        <Button type="submit" variant="contained" className="mt-4">
+          Create Post
+        </Button>
       </form>
     </div>
   );
