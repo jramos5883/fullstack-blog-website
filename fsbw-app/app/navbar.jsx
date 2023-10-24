@@ -18,16 +18,16 @@ export default function Navbar() {
 
   ("https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg");
   return (
-    <nav className="flex flex-row items-center justify-between h-20 bg-sky-800">
+    <nav className="flex flex-row items-center justify-between h-20 bg-pink-300 cellsm:bg-blue-300 celllg:bg-blue-600 tablet:bg-yellow-300 lapsm:bg-green-300 laplg:bg-green-600 desksm:bg-red-600 desklg:bg-red-900">
       <div className="flex flex-row items-center">
         <div className="flex flex-row items-center pl-4">
           <Link className="" href="/">
-            <span className="text-5xl text-cyan-400">
+            <span className="text-5xl text-black">
               <GiFlamingTrident />
             </span>
           </Link>
           <Link className="no-underline" href="/">
-            <Typography className="text-2xl text-bold pl-4 text-cyan-400">
+            <Typography className="text-2xl text-bold pl-4 text-black">
               TaGFanatics
             </Typography>
           </Link>
@@ -37,7 +37,7 @@ export default function Navbar() {
         {currentUser ? (
           // need to figure out how to display email/password created users
           <>
-            <Typography className="mr-4 text-white">
+            <Typography className="mr-4 text-black">
               Welcome {currentUser.displayName}!
             </Typography>
             <Button
