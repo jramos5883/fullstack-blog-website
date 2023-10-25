@@ -40,35 +40,45 @@ export default function DisplayPosts() {
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center bg-slate-500">
       <div className="w-2/3 mt-4">
         <div>
           <h1 className="flex justify-center">Tech and Gaming Fanatics</h1>
-          <p className="flex justify-center italic">
+          <p className="flex justify-center italic text-xl">
             -For those who love great games and new technologies!
           </p>
-          <label htmlFor="category">Filter by category:</label>
+          <label className="text-lg" htmlFor="category">
+            Filter by category:{" "}
+          </label>
           <select
+            className="text-xl bg-gray-500 border-2 border-black"
             id="category"
             name="category"
             value={selectedCategory}
             onChange={handleCategoryChange}
+            // style={{ backgroundColor: "lightgray" }}
           >
-            <option value="">All</option>
-            <option value="Tech">Tech</option>
-            <option value="Gaming">Gaming</option>
+            <option className="text-xl" value="">
+              All
+            </option>
+            <option className="text-xl" value="Tech">
+              Tech
+            </option>
+            <option className="text-xl" value="Gaming">
+              Gaming
+            </option>
           </select>
         </div>
         {posts.map((post) => (
           <div key={post.id}>
-            <p>{post.title}</p>
-            <p>Category: {post.category}</p>
-            <p>Written By: {post.author}</p>
-            <p>
+            <p className="text-2xl">{post.title}</p>
+            <p className="text-lg">Category: {post.category}</p>
+            <p className="text-lg">Written By: {post.author}</p>
+            <p className="text-lg">
               Published On:{" "}
               {new Date(post.createdAt.seconds * 1000).toLocaleDateString()}
             </p>
-            <p>{post.content}</p>
+            <p className="text-xl">{post.content}</p>
           </div>
         ))}
       </div>
