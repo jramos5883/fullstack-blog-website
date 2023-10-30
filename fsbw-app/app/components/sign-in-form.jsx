@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 import { FcGoogle } from "react-icons/fc";
 
@@ -17,12 +18,15 @@ const defaultFormFields = {
 };
 
 export default function SignInForm() {
+  const router = useRouter();
   const signInWithGoogle = async () => {
     // takes user info from google sign in to create a user document in the users collection
     await signInWithGooglePopup();
 
     // may need a setCurrentUser(user); for google sign in as well
     // setCurrentUser(user);
+
+    router.push("/");
   };
 
   const [formFields, setFormFields] = useState(defaultFormFields);
@@ -47,6 +51,7 @@ export default function SignInForm() {
       // setCurrentUser(user);
 
       resetFormFields();
+      router.push("/");
     } catch (error) {
       if (error.code === "auth/invalid-login-credentials") {
         alert("Invalid login credentials, please try again");
