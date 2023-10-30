@@ -1,6 +1,7 @@
 import { useState } from "react";
 // import { UserContext } from "../contexts/user.context";
 import { Button } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 import {
   createAuthUserWithEmailAndPassword,
@@ -15,6 +16,7 @@ const defaultFormFields = {
 };
 
 export default function SignUpForm() {
+  const router = useRouter();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -45,6 +47,7 @@ export default function SignUpForm() {
 
       // reset form fields after sucessfully creating user
       resetFormFields();
+      router.push("/");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         alert("Cannot create new user, email already in use");
