@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"; // import serverTimestamp
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { blogStorage } from "../utils/firebase/firebase.utils";
 import { db } from "../utils/firebase/firebase.utils";
 import { Button } from "@mui/material";
 
@@ -10,22 +12,41 @@ export default function CreateTechBlogPost() {
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("tech"); // default category is "tech"
   const [author, setAuthor] = useState(""); // default author is "John Doe" for now
+  const [file, setFile] = useState(null); // set file to null initially
+
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let imageUrl = "";
+
+    if (file) {
+      const blogStorageRef = ref(blogStorage, `blogImages/${file.name}`);
+      const snapshot = await uploadBytes(blogStorageRef, file);
+      imageUrl = await getDownloadURL(snapshot.ref);
+    }
+
     try {
       const docRef = await addDoc(collection(db, "posts"), {
         title,
         content,
         category,
         author,
-        createdAt: serverTimestamp(), // add timestamp to the post object
+        imageUrl,
+        createdAt: serverTimestamp(),
       });
       console.log("Post created with ID: ", docRef.id);
+
+      // Reset states after successful operation
       setTitle("");
       setContent("");
-      setCategory("Tech"); // reset category to "tech" after submitting the post
-      setAuthor(""); // reset author to "" after submitting the post
+      setCategory("tech");
+      setAuthor("");
+      setFile(null);
     } catch (error) {
       console.error("Error adding post: ", error);
     }
@@ -53,6 +74,10 @@ export default function CreateTechBlogPost() {
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
         />
+
+        <label htmlFor="file">Upload Image:</label>
+        <input type="file" id="file" onChange={handleFileChange} />
+
         <label>Blog Content:</label>
         <textarea
           placeholder="Content"

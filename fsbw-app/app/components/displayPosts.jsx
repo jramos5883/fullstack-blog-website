@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import {
   collection,
   doc,
@@ -78,6 +79,13 @@ export default function DisplayPosts() {
               Published On:{" "}
               {new Date(post.createdAt.seconds * 1000).toLocaleDateString()}
             </p>
+            <Image
+              src={post.imageUrl}
+              width={500}
+              height={500}
+              layout="responsive"
+              alt="Blog Post Image"
+            />
             <p className="text-xl">{post.content}</p>
           </div>
         ))}

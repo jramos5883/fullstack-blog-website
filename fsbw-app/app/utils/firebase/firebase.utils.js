@@ -92,3 +92,9 @@ export const signOutAuthUser = async () => await signOut(auth);
 // onAuthStateChanged listener, callback comes from user context
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
+
+// setting up blog image storage
+
+import { getStorage } from "firebase/storage";
+
+export const blogStorage = getStorage(firebaseApp);
