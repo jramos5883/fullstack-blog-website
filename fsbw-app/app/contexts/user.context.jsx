@@ -1,7 +1,6 @@
 "use client";
 
 import { createContext, useState, useEffect } from "react";
-
 import {
   onAuthStateChangedListener,
   createUserProfileDocument,
@@ -9,26 +8,28 @@ import {
 
 // the actually value you want to access
 export const UserContext = createContext({
-  currentUser: null,
-  setCurrentUser: () => null,
+  currentUser: undefined, // initially undefined
+  setCurrentUser: () => {},
 });
 
-// component that provides the value to all children
 export const UserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const value = { currentUser, setCurrentUser };
+  const [currentUser, setCurrentUser] = useState(undefined); // initially undefined
 
-  // an auth state change runs this callback function
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
         createUserProfileDocument(user);
+        setCurrentUser(user);
+      } else {
+        setCurrentUser(null);
       }
-      setCurrentUser(user);
-      console.log(user);
     });
     return unsubscribe;
   }, []);
 
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+      {children}
+    </UserContext.Provider>
+  );
 };
