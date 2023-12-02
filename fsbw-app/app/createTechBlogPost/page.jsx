@@ -11,7 +11,7 @@ import { Button } from "@mui/material";
 export default function CreateTechBlogPost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [category, setCategory] = useState("Tech"); // default category is "tech"
+  const [category, setCategory] = useState("Tech"); // default category is "Tech"
   const [author, setAuthor] = useState(""); // default author is "John Doe" for now
   const [file, setFile] = useState(null); // set file to null initially
 

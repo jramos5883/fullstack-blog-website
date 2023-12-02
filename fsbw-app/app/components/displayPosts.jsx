@@ -1,5 +1,8 @@
 "use client";
 
+import Comments from "./comments";
+import { useContext } from "react";
+import { UserContext } from "../contexts/user.context";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import {
@@ -15,6 +18,7 @@ import { db } from "../utils/firebase/firebase.utils";
 export default function DisplayPosts() {
   const [posts, setPosts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const { currentUser } = useContext(UserContext);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -87,6 +91,8 @@ export default function DisplayPosts() {
               alt="Blog Post Image"
             />
             <p className="text-xl">{post.content}</p>
+            {/* Comments Section */}
+            <Comments postId={post.id} currentUser={currentUser} />
           </div>
         ))}
       </div>
