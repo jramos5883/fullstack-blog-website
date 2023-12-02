@@ -15,15 +15,17 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import Avatar from "@mui/material/Avatar";
-import ConfirmationDialog from "./ConfirmationDialog"; // Adjust the import path as needed
+import ConfirmationDialog from "./ConfirmationDialog";
 
 export default function Comments({ postId, currentUser }) {
   const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState("");
+  const [newComment, setNewComment] = useState(""); // State for new top-level comments
+  const [newReply, setNewReply] = useState(""); // Separate state for replies
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editedComment, setEditedComment] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
+  const [activeReply, setActiveReply] = useState(null);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -55,20 +57,23 @@ export default function Comments({ postId, currentUser }) {
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
-    if (!newComment.trim()) return;
+    const commentText = activeReply ? newReply : newComment;
+    if (!commentText.trim()) return;
 
     try {
       const newCommentRef = await addDoc(collection(db, "comments"), {
         postId,
         userId: currentUser.uid,
-        comment: newComment,
+        comment: commentText,
+        parentId: activeReply,
         createdAt: new Date(),
       });
 
       const newCommentForDisplay = {
         id: newCommentRef.id,
         userId: currentUser.uid,
-        comment: newComment,
+        comment: commentText,
+        parentId: activeReply,
         createdAt: new Date(),
         userDisplayName: currentUser.displayName || "Anonymous",
         userPhotoURL: currentUser.photoURL || "/path-to-default-avatar.jpg",
@@ -76,6 +81,8 @@ export default function Comments({ postId, currentUser }) {
 
       setComments([...comments, newCommentForDisplay]);
       setNewComment("");
+      setNewReply("");
+      setActiveReply(null);
     } catch (error) {
       console.error("Error adding comment: ", error);
     }
@@ -127,6 +134,71 @@ export default function Comments({ postId, currentUser }) {
     }
   };
 
+  const renderComments = (comments, parentId = null) => {
+    return comments
+      .filter((comment) => comment.parentId === parentId)
+      .map((comment) => (
+        <div
+          key={comment.id}
+          className={`flex items-center space-x-2 ${parentId ? "pl-4" : ""}`}
+        >
+          <Avatar alt={comment.userDisplayName} src={comment.userPhotoURL} />
+          <div>
+            {editingCommentId === comment.id ? (
+              <>
+                <textarea
+                  value={editedComment}
+                  onChange={(e) => setEditedComment(e.target.value)}
+                />
+                <button onClick={() => handleEditSubmit(comment.id)}>
+                  Save
+                </button>
+                <button onClick={cancelEdit}>Cancel</button>
+              </>
+            ) : (
+              <>
+                <p>
+                  <strong>{comment.userDisplayName}:</strong> {comment.comment}
+                </p>
+                {currentUser && (
+                  <div>
+                    <button onClick={() => setActiveReply(comment.id)}>
+                      Reply
+                    </button>
+                    {currentUser.uid === comment.userId && (
+                      <>
+                        <button
+                          onClick={() => startEdit(comment.id, comment.comment)}
+                        >
+                          Edit
+                        </button>
+                        <button onClick={() => promptDelete(comment.id)}>
+                          Delete
+                        </button>
+                      </>
+                    )}
+                  </div>
+                )}
+                {activeReply === comment.id && (
+                  <form onSubmit={handleCommentSubmit}>
+                    <textarea
+                      value={newReply}
+                      onChange={(e) => setNewReply(e.target.value)}
+                    />
+                    <button type="submit">Submit Reply</button>
+                    <button onClick={() => setActiveReply(null)}>
+                      Cancel Reply
+                    </button>
+                  </form>
+                )}
+              </>
+            )}
+            {renderComments(comments, comment.id)}
+          </div>
+        </div>
+      ));
+  };
+
   return (
     <div>
       {currentUser && (
@@ -139,46 +211,7 @@ export default function Comments({ postId, currentUser }) {
         </form>
       )}
 
-      <div>
-        {comments.map((comment) => (
-          <div key={comment.id} className="flex items-center space-x-2">
-            <Avatar alt={comment.userDisplayName} src={comment.userPhotoURL} />
-            <div>
-              {editingCommentId === comment.id ? (
-                <>
-                  <textarea
-                    value={editedComment}
-                    onChange={(e) => setEditedComment(e.target.value)}
-                  />
-                  <button onClick={() => handleEditSubmit(comment.id)}>
-                    Save
-                  </button>
-                  <button onClick={cancelEdit}>Cancel</button>
-                </>
-              ) : (
-                <>
-                  <p>
-                    <strong>{comment.userDisplayName}:</strong>{" "}
-                    {comment.comment}
-                  </p>
-                  {currentUser && currentUser.uid === comment.userId && (
-                    <div>
-                      <button
-                        onClick={() => startEdit(comment.id, comment.comment)}
-                      >
-                        Edit
-                      </button>
-                      <button onClick={() => promptDelete(comment.id)}>
-                        Delete
-                      </button>
-                    </div>
-                  )}
-                </>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
+      <div>{renderComments(comments)}</div>
 
       <ConfirmationDialog
         isOpen={isDialogOpen}
@@ -187,7 +220,7 @@ export default function Comments({ postId, currentUser }) {
         message="Are you sure you want to remove your comment?"
       />
 
-      {!currentUser && <p className="">Sign in to post a comment.</p>}
+      {!currentUser && <p>Sign in to post a comment.</p>}
     </div>
   );
 }
