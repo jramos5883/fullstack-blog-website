@@ -15,7 +15,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import Avatar from "@mui/material/Avatar";
-import ConfirmationDialog from "./ConfirmationDialog";
+import ConfirmationDialog from "./confirmationDialog";
 
 export default function Comments({ postId, currentUser }) {
   const [comments, setComments] = useState([]);
