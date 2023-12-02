@@ -45,7 +45,7 @@ export default function CreateTechBlogPost() {
       // Reset states after successful operation
       setTitle("");
       setContent("");
-      setCategory("tech");
+      setCategory("Tech");
       setAuthor("");
       setFile(null);
     } catch (error) {
